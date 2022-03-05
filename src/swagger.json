@@ -1,0 +1,540 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ProfileType": {
+				"type": "string",
+				"enum": [
+					"stakeholder",
+					"admin",
+					"unit owner"
+				]
+			},
+			"RecordStatus": {
+				"type": "string",
+				"enum": [
+					"active",
+					"inactive"
+				]
+			},
+			"AuthProfile": {
+				"properties": {
+					"remarks": {
+						"type": "string"
+					},
+					"scopes": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RecordStatus"
+					},
+					"type": {
+						"$ref": "#/components/schemas/ProfileType"
+					},
+					"mobileNumber": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"status",
+					"type",
+					"email",
+					"username",
+					"name",
+					"id"
+				],
+				"type": "object"
+			},
+			"AuthResult": {
+				"properties": {
+					"token": {
+						"type": "string"
+					},
+					"profile": {
+						"$ref": "#/components/schemas/AuthProfile"
+					}
+				},
+				"required": [
+					"token",
+					"profile"
+				],
+				"type": "object"
+			},
+			"FieldError": {
+				"properties": {
+					"value": {
+						"type": "string",
+						"nullable": true
+					},
+					"field": {
+						"type": "string",
+						"nullable": true
+					},
+					"type": {
+						"type": "string",
+						"nullable": true
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"value",
+					"field",
+					"type",
+					"message"
+				],
+				"type": "object"
+			},
+			"EntityError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"fieldErrors": {
+						"items": {
+							"$ref": "#/components/schemas/FieldError"
+						},
+						"type": "array",
+						"default": []
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterProfile": {
+				"properties": {
+					"mobileNumber": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password",
+					"username",
+					"name"
+				],
+				"type": "object"
+			},
+			"ApiError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateProfile": {
+				"properties": {
+					"remarks": {
+						"type": "string",
+						"nullable": true
+					},
+					"scopes": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RecordStatus"
+					},
+					"type": {
+						"$ref": "#/components/schemas/ProfileType"
+					},
+					"mobileNumber": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"type",
+					"email",
+					"name"
+				],
+				"type": "object"
+			}
+		},
+		"securitySchemes": {
+			"bearer": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "authorization"
+			}
+		}
+	},
+	"info": {
+		"title": "foundation-api",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/api/auth": {
+			"post": {
+				"operationId": "Auth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthResult"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/profile/getAll": {
+			"get": {
+				"operationId": "GetAllProfiles",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/AuthProfile"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "search",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/profile/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthResult"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "bad request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EntityError"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterProfile"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/profile/me": {
+			"get": {
+				"operationId": "Me",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthProfile"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/api/profile/updateProfileStatus/{id}": {
+			"patch": {
+				"operationId": "UpdateProfileStatus",
+				"responses": {
+					"204": {
+						"description": "no content"
+					}
+				},
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/RecordStatus"
+						}
+					}
+				]
+			}
+		},
+		"/api/profile/updateProfile/{id}": {
+			"patch": {
+				"operationId": "UpdateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthProfile"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "bad request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EntityError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiError"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProfile"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/profile/changePassword/{id}": {
+			"patch": {
+				"operationId": "ChangePassword",
+				"responses": {
+					"204": {
+						"description": "no content"
+					}
+				},
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"newPassword": {
+										"type": "string"
+									},
+									"currentPassword": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"newPassword",
+									"currentPassword"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/profile/resetPassword": {
+			"post": {
+				"operationId": "ResetPassword",
+				"responses": {
+					"204": {
+						"description": "no content"
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									},
+									"username": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email",
+									"username"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
