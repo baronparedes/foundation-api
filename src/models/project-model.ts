@@ -12,7 +12,7 @@ import {RecordStatus} from '../@types';
 import {ProjectAttr} from '../@types/entities';
 
 @Table({
-  indexes: [{unique: true, fields: ['name', 'code']}],
+  indexes: [{unique: true, fields: ['code']}],
 })
 class Project extends Model implements ProjectAttr {
   @AllowNull(false)

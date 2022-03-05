@@ -41,7 +41,8 @@ export default class ProjectService {
     result.name = data.name;
     result.location = data.location;
     result.estimatedCost = data.estimatedCost;
-    result.remarks = data.remarks ?? undefined;
+    result.remarks = data.remarks;
+    result.status = data.status;
     await result.save();
     return mapProject(result);
   }
