@@ -3,42 +3,43 @@ import {AuthProfile} from '../@types/models';
 import Profile from '../models/profile-model';
 import Project from '../models/project-model';
 
-export function mapProfile(profile: Profile): ProfileAttr {
+export function mapProfile(data: Profile): ProfileAttr {
   return {
-    id: Number(profile.id),
-    name: profile.name,
-    username: profile.username,
-    scopes: profile.scopes,
-    type: profile.type,
-    email: profile.email,
-    mobileNumber: profile.mobileNumber,
-    status: profile.status,
-    remarks: profile.remarks,
+    id: Number(data.id),
+    name: data.name,
+    username: data.username,
+    scopes: data.scopes,
+    type: data.type,
+    email: data.email,
+    mobileNumber: data.mobileNumber,
+    status: data.status,
+    remarks: data.remarks,
     password: '', //intentionally excluding passwords here
   };
 }
 
-export function mapAuthProfile(profile: Profile): AuthProfile {
+export function mapAuthProfile(data: Profile): AuthProfile {
   return {
-    id: Number(profile.id),
-    name: profile.name,
-    username: profile.username,
-    scopes: profile.scopes,
-    type: profile.type,
-    email: profile.email,
-    mobileNumber: profile.mobileNumber,
-    status: profile.status,
-    remarks: profile.remarks,
+    id: Number(data.id),
+    name: data.name,
+    username: data.username,
+    scopes: data.scopes,
+    type: data.type,
+    email: data.email,
+    mobileNumber: data.mobileNumber,
+    status: data.status,
+    remarks: data.remarks,
   };
 }
 
-export function mapProject(project: Project): ProjectAttr {
+export function mapProject(data: Project): ProjectAttr {
   return {
-    id: Number(project.id),
-    name: project.name,
-    code: project.code,
-    location: project.location,
-    estimatedCost: project.estimatedCost,
-    remarks: project.remarks,
+    id: Number(data.id),
+    name: data.name,
+    code: data.code,
+    location: data.location,
+    estimatedCost: data.estimatedCost,
+    status: data.status,
+    remarks: data.remarks,
   };
 }

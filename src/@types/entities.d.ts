@@ -20,4 +20,5 @@ export interface ProjectAttr {
   location: string;
   estimatedCost: number;
   remarks?: string;
+  status: RecordStatus;
 }

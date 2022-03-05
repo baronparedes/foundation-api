@@ -50,5 +50,6 @@ export const generateProject = (): ProjectAttr => {
     location: faker.address.city(),
     estimatedCost: Number(faker.finance.amount(undefined, undefined, 2)),
     remarks: faker.random.words(),
+    status: faker.random.arrayElement<RecordStatus>(['active', 'inactive']),
   };
 };

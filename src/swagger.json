@@ -238,13 +238,17 @@
 					},
 					"remarks": {
 						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RecordStatus"
 					}
 				},
 				"required": [
 					"name",
 					"code",
 					"location",
-					"estimatedCost"
+					"estimatedCost",
+					"status"
 				],
 				"type": "object",
 				"additionalProperties": false

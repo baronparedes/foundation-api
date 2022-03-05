@@ -83,6 +83,7 @@ const models: TsoaRoute.Models = {
             "location": {"dataType":"string","required":true},
             "estimatedCost": {"dataType":"double","required":true},
             "remarks": {"dataType":"string"},
+            "status": {"ref":"RecordStatus","required":true},
         },
         "additionalProperties": false,
     },
