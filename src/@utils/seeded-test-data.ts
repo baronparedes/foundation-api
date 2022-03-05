@@ -23,7 +23,7 @@ export const PROFILE_USER: ProfileAttr = {
   id: 2,
   username: 'testuser',
   password: hash(PROFILE_CREDS),
-  type: 'unit owner',
+  type: 'user',
   status: 'active',
 };
 

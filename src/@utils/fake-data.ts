@@ -5,7 +5,7 @@ import {ProfileAttr} from '../@types/entities';
 import {AuthProfile, RegisterProfile} from '../@types/models';
 
 export const generateAuthProfile = (
-  type: ProfileType = 'unit owner'
+  type: ProfileType = 'user'
 ): AuthProfile => {
   return {
     id: faker.datatype.number(),
@@ -28,9 +28,7 @@ export const generateRegisterProfile = (): RegisterProfile => {
   };
 };
 
-export const generateProfile = (
-  type: ProfileType = 'unit owner'
-): ProfileAttr => {
+export const generateProfile = (type: ProfileType = 'user'): ProfileAttr => {
   return {
     id: faker.datatype.number(),
     name: faker.name.findName(),

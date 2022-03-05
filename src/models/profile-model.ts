@@ -41,7 +41,7 @@ class Profile extends Model implements ProfileAttr {
   mobileNumber?: string;
 
   @AllowNull(false)
-  @Default('unit owner')
+  @Default('user')
   @Column
   type!: ProfileType;
 
