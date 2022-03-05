@@ -40,6 +40,6 @@
     "src/**/*.ts"
   ],
   "exclude": [
-      "src/**/*.spec.ts", "node_modules"
+      "node_modules"
   ]
 }

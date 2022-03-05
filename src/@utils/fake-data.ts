@@ -1,7 +1,7 @@
 import faker from 'faker';
 
 import {ProfileType, RecordStatus} from '../@types';
-import {ProfileAttr} from '../@types/entities';
+import {ProfileAttr, ProjectAttr} from '../@types/entities';
 import {AuthProfile, RegisterProfile} from '../@types/models';
 
 export const generateAuthProfile = (
@@ -38,6 +38,17 @@ export const generateProfile = (type: ProfileType = 'user'): ProfileAttr => {
     mobileNumber: faker.phone.phoneNumber(),
     status: faker.random.arrayElement<RecordStatus>(['active', 'inactive']),
     type,
+    remarks: faker.random.words(),
+  };
+};
+
+export const generateProject = (): ProjectAttr => {
+  return {
+    id: faker.datatype.number(),
+    name: faker.name.findName(),
+    code: faker.random.alphaNumeric(5),
+    location: faker.address.city(),
+    estimatedCost: Number(faker.finance.amount(undefined, undefined, 2)),
     remarks: faker.random.words(),
   };
 };

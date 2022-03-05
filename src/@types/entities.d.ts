@@ -12,3 +12,12 @@ export interface ProfileAttr {
   scopes?: string;
   remarks?: string;
 }
+
+export interface ProjectAttr {
+  id?: number;
+  name: string;
+  code: string;
+  location: string;
+  estimatedCost: number;
+  remarks?: string;
+}
