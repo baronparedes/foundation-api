@@ -4,7 +4,18 @@ import {ProjectAttr} from '../@types/entities';
 import {iLike} from '../@utils/helpers-sequelize';
 import {VERBIAGE} from '../constants';
 import Project from '../models/project-model';
-import {mapProject} from './@mappers';
+
+export function mapProject(data: Project): ProjectAttr {
+  return {
+    id: Number(data.id),
+    name: data.name,
+    code: data.code,
+    location: data.location,
+    estimatedCost: data.estimatedCost,
+    status: data.status,
+    remarks: data.remarks,
+  };
+}
 
 export default class ProjectService {
   public async getAll(search?: string) {

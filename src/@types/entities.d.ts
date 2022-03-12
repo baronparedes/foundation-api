@@ -22,3 +22,10 @@ export interface ProjectAttr {
   remarks?: string;
   status: RecordStatus;
 }
+
+export interface AccountAttr {
+  id?: number;
+  name: string;
+  remarks?: string;
+  status: RecordStatus;
+}

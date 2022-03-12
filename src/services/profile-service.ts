@@ -9,7 +9,35 @@ import {VERBIAGE} from '../constants';
 import {ApiError} from '../errors';
 import {useHash} from '../hooks/use-hash';
 import Profile from '../models/profile-model';
-import {mapAuthProfile} from './@mappers';
+
+export function mapProfile(data: Profile): ProfileAttr {
+  return {
+    id: Number(data.id),
+    name: data.name,
+    username: data.username,
+    scopes: data.scopes,
+    type: data.type,
+    email: data.email,
+    mobileNumber: data.mobileNumber,
+    status: data.status,
+    remarks: data.remarks,
+    password: '', //intentionally excluding passwords here
+  };
+}
+
+export function mapAuthProfile(data: Profile): AuthProfile {
+  return {
+    id: Number(data.id),
+    name: data.name,
+    username: data.username,
+    scopes: data.scopes,
+    type: data.type,
+    email: data.email,
+    mobileNumber: data.mobileNumber,
+    status: data.status,
+    remarks: data.remarks,
+  };
+}
 
 export default class ProfileService {
   private validateProfile(password: string, profile: ProfileAttr | null) {
