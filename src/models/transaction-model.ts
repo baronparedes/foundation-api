@@ -10,12 +10,15 @@ import {
 
 import {TransactionType} from '../@types';
 import {ProfileAttr, TransactionAttr} from '../@types/entities';
+import Account from './account-model';
 import Profile from './profile-model';
 import Project from './project-model';
+import Voucher from './voucher-model';
 
 @Table
 export default class Transaction extends Model implements TransactionAttr {
   @AllowNull(false)
+  @ForeignKey(() => Account)
   @Column
   accountId!: number;
 
@@ -23,7 +26,7 @@ export default class Transaction extends Model implements TransactionAttr {
   @Column
   projectId?: number;
 
-  @ForeignKey(() => Project)
+  @ForeignKey(() => Voucher)
   @Column
   voucherId?: number;
 
