@@ -14,7 +14,7 @@ import {ProjectAttr} from '../@types/entities';
 @Table({
   indexes: [{unique: true, fields: ['code']}],
 })
-class Project extends Model implements ProjectAttr {
+export default class Project extends Model implements ProjectAttr {
   @AllowNull(false)
   @NotEmpty
   @Column(DataType.CITEXT)
@@ -34,7 +34,6 @@ class Project extends Model implements ProjectAttr {
   @Column(DataType.DECIMAL)
   estimatedCost!: number;
 
-  @AllowNull(true)
   @Column
   remarks?: string;
 
@@ -43,5 +42,3 @@ class Project extends Model implements ProjectAttr {
   @Column
   status!: RecordStatus;
 }
-
-export default Project;

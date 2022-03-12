@@ -1,4 +1,4 @@
-import {ProfileType, RecordStatus} from './';
+import {ProfileType, RecordStatus, TransactionType} from './';
 
 export interface ProfileAttr {
   id?: number;
@@ -28,4 +28,31 @@ export interface AccountAttr {
   name: string;
   remarks?: string;
   status: RecordStatus;
+}
+
+export interface VoucherAttr {
+  id?: number;
+  series: string;
+  projectId: number;
+  description: string;
+  totalCost: number;
+  remarks?: string;
+  closed?: boolean;
+  processedBy: number;
+  processedByProfile?: ProfileAttr;
+}
+
+export interface TransactionAttr {
+  id?: number;
+  accountId: number;
+  projectId?: number;
+  voucherId?: number;
+  transactionType: TransactionType;
+  details: string;
+  checkNumber?: string;
+  checkPostingDate?: Date;
+  checkIssuingBank?: string;
+  amount: number;
+  processedBy: number;
+  processedByProfile?: ProfileAttr;
 }

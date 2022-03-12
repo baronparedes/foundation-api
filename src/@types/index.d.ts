@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ApprovedAny = any;
 export type ProfileType = 'stakeholder' | 'admin' | 'user';
-export type PaymentType = 'cash' | 'check';
+export type TransactionType = 'cash' | 'check';
 export type RecordStatus = 'active' | 'inactive';
 export type RequestStatus = 'approved' | 'rejected' | 'pending' | 'cancelled';
 export type Month =

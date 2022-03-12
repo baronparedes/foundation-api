@@ -15,7 +15,7 @@ import {ProfileAttr} from '../@types/entities';
 @Table({
   indexes: [{unique: true, fields: ['username']}],
 })
-class Profile extends Model implements ProfileAttr {
+export default class Profile extends Model implements ProfileAttr {
   @AllowNull(false)
   @NotEmpty
   @Column
@@ -53,9 +53,6 @@ class Profile extends Model implements ProfileAttr {
   @Column
   scopes?: string;
 
-  @AllowNull(true)
   @Column
   remarks?: string;
 }
-
-export default Profile;

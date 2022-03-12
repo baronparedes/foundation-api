@@ -14,13 +14,12 @@ import {AccountAttr} from '../@types/entities';
 @Table({
   indexes: [{unique: true, fields: ['name']}],
 })
-class Account extends Model implements AccountAttr {
+export default class Account extends Model implements AccountAttr {
   @AllowNull(false)
   @NotEmpty
   @Column(DataType.CITEXT)
   name!: string;
 
-  @AllowNull(true)
   @Column
   remarks?: string;
 
@@ -29,5 +28,3 @@ class Account extends Model implements AccountAttr {
   @Column
   status!: RecordStatus;
 }
-
-export default Account;
