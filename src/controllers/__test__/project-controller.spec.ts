@@ -1,6 +1,9 @@
 import faker from 'faker';
 
-import {generateProject} from '../../@utils/fake-data';
+import {
+  generateDisburseProjectFund,
+  generateProject,
+} from '../../@utils/fake-data';
 import ProjectService from '../../services/project-service';
 import {ProjectController} from '../project-controller';
 
@@ -42,5 +45,19 @@ describe('ProjectController', () => {
     expect(mock).toBeCalledTimes(1);
     expect(mock).toBeCalledWith(data);
     expect(actual).toBe(data);
+  });
+
+  it('should release project funds', async () => {
+    const id = faker.datatype.number();
+    const data = generateDisburseProjectFund();
+
+    const mock = jest
+      .spyOn(ProjectService.prototype, 'disburseFund')
+      .mockReturnValueOnce(new Promise(resolve => resolve()));
+    const target = new ProjectController();
+    await target.disburseProjectFund(id, data);
+
+    expect(mock).toBeCalledTimes(1);
+    expect(mock).toBeCalledWith(id, data);
   });
 });

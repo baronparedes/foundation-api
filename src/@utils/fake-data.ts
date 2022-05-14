@@ -1,8 +1,17 @@
 import faker from 'faker';
 
-import {ProfileType, RecordStatus} from '../@types';
-import {AccountAttr, ProfileAttr, ProjectAttr} from '../@types/entities';
-import {AuthProfile, RegisterProfile} from '../@types/models';
+import {ProfileType, RecordStatus, TransactionType} from '../@types';
+import {
+  AccountAttr,
+  ProfileAttr,
+  ProjectAttr,
+  TransactionAttr,
+} from '../@types/entities';
+import {
+  AuthProfile,
+  DisburseProjectFund,
+  RegisterProfile,
+} from '../@types/models';
 
 export const generateAuthProfile = (
   type: ProfileType = 'user'
@@ -60,5 +69,41 @@ export const generateAccount = (): AccountAttr => {
     name: faker.name.findName(),
     remarks: faker.random.words(),
     status: faker.random.arrayElement<RecordStatus>(['active', 'inactive']),
+  };
+};
+
+export const generateDisburseProjectFund = (): DisburseProjectFund => {
+  return {
+    accountId: faker.datatype.number(),
+    amount: Number(faker.finance.amount()),
+    description: faker.random.words(),
+    processedBy: faker.datatype.number(),
+    series: faker.random.alphaNumeric(),
+    transactionType: faker.random.arrayElement<TransactionType>([
+      'cash',
+      'check',
+    ]),
+    checkIssuingBank: faker.finance.accountName(),
+    checkNumber: faker.random.alphaNumeric(),
+    checkPostingDate: faker.date.future(),
+    remarks: faker.random.words(),
+  };
+};
+
+export const generateTransaction = (): TransactionAttr => {
+  return {
+    accountId: faker.datatype.number(),
+    amount: Number(faker.finance.amount()),
+    details: faker.random.words(),
+    processedBy: faker.datatype.number(),
+    transactionType: faker.random.arrayElement<TransactionType>([
+      'cash',
+      'check',
+    ]),
+    checkIssuingBank: faker.finance.accountName(),
+    checkNumber: faker.random.alphaNumeric(),
+    checkPostingDate: faker.date.future(),
+    projectId: faker.datatype.number(),
+    voucherId: faker.datatype.number(),
   };
 };

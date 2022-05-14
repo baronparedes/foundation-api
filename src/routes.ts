@@ -101,6 +101,68 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ProfileAttr": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double"},
+            "name": {"dataType":"string","required":true},
+            "username": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "mobileNumber": {"dataType":"string"},
+            "type": {"ref":"ProfileType","required":true},
+            "status": {"ref":"RecordStatus","required":true},
+            "scopes": {"dataType":"string"},
+            "remarks": {"dataType":"string"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "VoucherAttr": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double"},
+            "series": {"dataType":"string","required":true},
+            "projectId": {"dataType":"double","required":true},
+            "description": {"dataType":"string","required":true},
+            "totalCost": {"dataType":"double","required":true},
+            "remarks": {"dataType":"string"},
+            "closed": {"dataType":"boolean"},
+            "processedBy": {"dataType":"double","required":true},
+            "processedByProfile": {"ref":"ProfileAttr"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TransactionType": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["cash"]},{"dataType":"enum","enums":["check"]}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TransactionAttr": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double"},
+            "accountId": {"dataType":"double","required":true},
+            "projectId": {"dataType":"double"},
+            "voucherId": {"dataType":"double"},
+            "transactionType": {"ref":"TransactionType","required":true},
+            "details": {"dataType":"string","required":true},
+            "checkNumber": {"dataType":"string"},
+            "checkPostingDate": {"dataType":"datetime"},
+            "checkIssuingBank": {"dataType":"string"},
+            "amount": {"dataType":"double","required":true},
+            "processedBy": {"dataType":"double","required":true},
+            "processedByProfile": {"ref":"ProfileAttr"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "DisburseProjectFund": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"remarks":{"dataType":"string"},"amount":{"dataType":"double","required":true},"checkIssuingBank":{"dataType":"string"},"checkPostingDate":{"dataType":"datetime"},"checkNumber":{"dataType":"string"},"transactionType":{"ref":"TransactionType","required":true},"series":{"dataType":"string","required":true},"description":{"dataType":"string","required":true},"processedBy":{"dataType":"double","required":true},"accountId":{"dataType":"double","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const validationService = new ValidationService(models);
 
@@ -400,6 +462,54 @@ export function RegisterRoutes(app: express.Router) {
             promiseHandler(controller, promise, response, undefined, next);
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/project/getProjectVouchers/:id',
+            authenticateMiddleware([{"bearer":[]}]),
+
+            function ProjectController_getProjectVouchers(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new ProjectController();
+
+
+            const promise = controller.getProjectVouchers.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, undefined, next);
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/project/getProjectTransactions/:id',
+            authenticateMiddleware([{"bearer":[]}]),
+
+            function ProjectController_getProjectTransactions(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new ProjectController();
+
+
+            const promise = controller.getProjectTransactions.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, undefined, next);
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/api/project/createProject',
             authenticateMiddleware([{"bearer":[]}]),
 
@@ -446,6 +556,56 @@ export function RegisterRoutes(app: express.Router) {
 
 
             const promise = controller.updateProject.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, undefined, next);
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/api/project/disburseProjectFund/:id',
+            authenticateMiddleware([{"bearer":[]}]),
+
+            function ProjectController_disburseProjectFund(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                    data: {"in":"body","name":"data","required":true,"ref":"DisburseProjectFund"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new ProjectController();
+
+
+            const promise = controller.disburseProjectFund.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, undefined, next);
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/api/project/depositProjectFund/:id',
+            authenticateMiddleware([{"bearer":[]}]),
+
+            function ProjectController_depositProjectFund(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                    data: {"in":"body","name":"data","required":true,"ref":"TransactionAttr"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new ProjectController();
+
+
+            const promise = controller.depositProjectFund.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, undefined, next);
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

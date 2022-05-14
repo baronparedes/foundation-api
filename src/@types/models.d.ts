@@ -1,4 +1,4 @@
-import {ProfileType, RecordStatus} from './';
+import {ProfileType, RecordStatus, TransactionType} from './';
 
 export type AuthProfile = {
   id: number;
@@ -33,4 +33,17 @@ export type UpdateProfile = {
 export type AuthResult = {
   profile: AuthProfile;
   token: string;
+};
+
+export type DisburseProjectFund = {
+  accountId: number;
+  processedBy: number;
+  description: string;
+  series: string;
+  transactionType: TransactionType;
+  checkNumber?: string;
+  checkPostingDate?: Date;
+  checkIssuingBank?: string;
+  amount: number;
+  remarks?: string;
 };
